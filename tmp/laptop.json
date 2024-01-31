@@ -1,0 +1,62 @@
+{
+  "id": "f11a05a5-fd4a-46c3-89d0-a5913f8414fd",
+  "brand": "Dell",
+  "name": "XPS",
+  "cpu": {
+    "brand": "Intel",
+    "name": "Core i9-9980HK",
+    "number_cores": 3,
+    "number_threads": 10,
+    "min_ghz": 3.280255093399986,
+    "max_ghz": 4.292890647005583
+  },
+  "ram": {
+    "value": "26",
+    "unit": "GIGABYTE"
+  },
+  "gpus": [
+    {
+      "brand": "Nvidia",
+      "name": "GTX 1070",
+      "min_ghz": 1.411222451107422,
+      "max_ghz": 1.7399717091618545,
+      "memory": {
+        "value": "2",
+        "unit": "GIGABYTE"
+      }
+    }
+  ],
+  "storages": [
+    {
+      "driver": "SSD",
+      "memory": {
+        "value": "645",
+        "unit": "GIGABYTE"
+      }
+    },
+    {
+      "driver": "HDD",
+      "memory": {
+        "value": "3",
+        "unit": "TERABYTE"
+      }
+    }
+  ],
+  "screen": {
+    "size_inch": 13.261314,
+    "resolution": {
+      "width": 7541,
+      "height": 4242
+    },
+    "panel": "OLED",
+    "multitouch": true
+  },
+  "keyboard": {
+    "layout": "QWERTZ",
+    "backlit": false
+  },
+  "weight_kg": 2.059629679561271,
+  "price_usd": 1606.557812428205,
+  "release_year": 2017,
+  "updated_at": "2024-01-30T01:39:53.660514Z"
+}
