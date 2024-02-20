@@ -3,9 +3,11 @@ module github.com/thanhquy1105/pcbook-grpc-golang
 go 1.20
 
 require (
+	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.6.0
 	github.com/jinzhu/copier v0.4.0
 	github.com/stretchr/testify v1.8.4
+	golang.org/x/crypto v0.15.0
 	google.golang.org/grpc v1.61.0
 	google.golang.org/protobuf v1.31.0
 )

@@ -41,10 +41,10 @@ func (store *DiskImageStore) Save(laptopID string, imageType string, imageData b
 	imagePath := fmt.Sprintf("%s/%s%s", store.imageFolder, imageID, imageType)
 
 	file, err := os.Create(imagePath)
-	defer file.Close()
 	if err != nil {
 		return "", fmt.Errorf("cannot create image file: %w", err)
 	}
+	defer file.Close()
 
 	_, err = imageData.WriteTo(file)
 	if err != nil {
