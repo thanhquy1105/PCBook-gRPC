@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -13,16 +12,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
-
-func unaryInterceptor(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
-	log.Println("--> unary interceptor: ", info.FullMethod)
-	return handler(ctx, req)
-}
-
-func streamInterceptor(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-	log.Println("--> stream interceptor: ", info.FullMethod)
-	return handler(srv, ss)
-}
 
 const (
 	secretKey    = "secretkey"
@@ -47,6 +36,16 @@ func createUser(userStore service.UserStore, username, password, role string) er
 	return userStore.Save(user)
 }
 
+func accessibleRoles() map[string][]string {
+	const laptopServicePath = "/pb.LaptopService"
+
+	return map[string][]string{
+		laptopServicePath + "CreateLaptop": {"admin"},
+		laptopServicePath + "UploadImage":  {"admin"},
+		laptopServicePath + "RateLaptop":   {"admin", "user"},
+	}
+}
+
 func main() {
 	fmt.Println("Hello world from server")
 	port := flag.Int("port", 0, "the server port")
@@ -67,9 +66,11 @@ func main() {
 
 	laptopServer := service.NewLaptopServer(laptopStore, imageStore, ratingStore)
 
+	interceptor := service.NewAuthInterceptor(jwtManager, accessibleRoles())
+
 	grpcServer := grpc.NewServer(
-		grpc.UnaryInterceptor(unaryInterceptor),
-		grpc.StreamInterceptor(streamInterceptor),
+		grpc.UnaryInterceptor(interceptor.Unary()),
+		grpc.StreamInterceptor(interceptor.Stream()),
 	)
 
 	pb.RegisterAuthServiceServer(grpcServer, authServer)
