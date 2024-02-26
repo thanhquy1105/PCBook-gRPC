@@ -1,0 +1,19 @@
+start nginx
+
+tasklist /fi "imagename eq nginx.exe"
+
+nginx -t        check nginx.conf file valid
+
+nginx -s stop	fast shutdown
+nginx -s quit	graceful shutdown
+nginx -s reload	changing configuration, starting new worker processes with a new configuration, graceful shutdown of old worker processes
+nginx -s reopen	re-opening log files
+
+To run Load balancing gRPC service with NGINX
+
+1. cd to the folder containing project
+2. open cmd
+3. `start nginx`
+4. `make server1-tls`
+5. `make server2-tls`
+6. `make client-tls`
