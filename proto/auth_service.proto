@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package pb;
 
+import "google/api/annotations.proto";
+
 option go_package = "github.com/thanhquy1105/pcbook-grpc-golang/pb";
 
 message LoginRequest {
@@ -14,5 +16,10 @@ message LoginResponse {
 }
 
 service AuthService {
-    rpc Login(LoginRequest) returns (LoginResponse) {};
+    rpc Login(LoginRequest) returns (LoginResponse) {
+        option (google.api.http) = {
+            post: "/v1/auth/login"
+            body: "*"
+        };
+    };
 }
